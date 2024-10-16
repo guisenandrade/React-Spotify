@@ -5,6 +5,7 @@ import ConteudoPrincipal from "./assets/componentes/ConteudoPrincipal"
 import Header from "./assets/componentes/Header"
 import Sidebar from "./assets/componentes/Sidebar"
 import { useEffect } from "react"
+import artista from "../server/Models/Artista"
 
 function App() {
 
@@ -16,6 +17,7 @@ useEffect(() => {
   .then(res => res.json())
   .then(res => setArtistas(res))
   .catch(err => console.log(err))
+  .finally(() => console.log('Finalizou a requisição'))
 
 }, [])
 
@@ -29,17 +31,18 @@ useEffect(() => {
         <Cardsidebar/>
         </Sidebar>
         <ConteudoPrincipal>
-          {artistas.map ((artista) => (
-              <div className="bg-red 500 w-28 h-28 flex flex-col justify-around items-center">
-                <p>{artista.name}</p>
-                <div className="bg-green-400 w-3/4 h-7"></div>
+          <>
+          
+          {artistas.filter (artista => artista.genero === "Funk")
+          .map(artista => (
+              <div className="bg-red-500 w-28 h-28 flex flex-col justify-around items-center">
+                <h1>{artista.name}</h1>
+                <h1>{artista.genero}</h1>
               </div>  
             ))}
           
-        <div className="bg-red-500 w-28 h-28 flex flex-col justify-around items-center">
-            <div className="bg-green-400 w-3/4 h-7"></div>
-            <div className="bg-green-400 w-3/4 h-7"></div>
-          </div>
+          </>
+      
         </ConteudoPrincipal>
       </Container>
     </>
