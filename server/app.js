@@ -24,3 +24,8 @@ app.get('/artistas', async (req,res)=>{
 app.listen(3000, () => {
     console.log("Servidor conectado")
 })
+
+app.get("/artistas/:id", async(req,res) =>{
+    const artista = await artista.findById(req.paramas.id);
+    res.status(200).json(artista)
+})
